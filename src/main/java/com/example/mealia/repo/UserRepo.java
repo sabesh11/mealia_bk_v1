@@ -1,0 +1,19 @@
+package com.example.mealia.repo;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+
+import com.example.mealia.model.User;
+
+@Repository
+public interface UserRepo extends JpaRepository<User, Integer> {
+
+	@Query(value="Select * from users WHERE name= :name AND PASSWORD = :password", nativeQuery= true)
+    User findByUser(String name, String password);
+
+}
