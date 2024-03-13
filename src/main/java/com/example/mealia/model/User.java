@@ -1,8 +1,12 @@
 package com.example.mealia.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,7 +19,16 @@ public class User {
 	private String Email;
 	private String Password;
 	private String ConfirmPassword;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Cart> cart;
 	
+	
+	public List<Cart> getCart() {
+		return cart;
+	}
+	public void setCart(List<Cart> cart) {
+		this.cart = cart;
+	}
 	public User(int id, String name, String email, String password, String confirmPassword) {
 		super();
 		this.id = id;

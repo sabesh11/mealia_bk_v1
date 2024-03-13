@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.mealia.repo.CartRepo;
 import com.example.mealia.repo.UserRepo;
+import com.example.mealia.model.Cart;
 import com.example.mealia.model.User;
 
 
@@ -22,6 +24,9 @@ public class UserController{
 
 	@Autowired
 	private UserRepo userRepo;
+	
+	@Autowired
+	private CartRepo cartRepo;
 	
 	User user = new User();
 	
@@ -47,11 +52,19 @@ public class UserController{
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 	        .body("Data not found");
 		}
-		  		
-		
+	}
+	
+	@PostMapping("/addcart/{userid}")
+	public ResponseEntity<?> addCart(@RequestBody Cart cart,@PathVariable int userid ){
 		
 		
 		 
- 
+	User user = userRepo.findById(userid).get();
+	
+	user.getCart().add(cart);
+	
+userRepo.save(user);           		
+		 return ResponseEntity.status(HttpStatus.OK)
+		        .body(cart);
 	 }
 }
