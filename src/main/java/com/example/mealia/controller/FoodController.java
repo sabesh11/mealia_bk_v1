@@ -1,6 +1,7 @@
 package com.example.mealia.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import com.example.mealia.repo.FoodRepo;
 import com.example.mealia.repo.UserRepo;
 import com.example.mealia.model.Cart;
 import com.example.mealia.model.FoodDetail;
+import com.example.mealia.model.TotalPrice;
 import com.example.mealia.model.User;
 
 @RestController
@@ -36,7 +38,7 @@ public class FoodController {
 	@PostMapping("/addfood")
 	public ResponseEntity<?> setFood(@RequestBody FoodDetail fooddetail ){
 		 
-		FoodDetail food = foodrepo.save(fooddetail);
+		FoodDetail food = foodrepo.save(fooddetail);  
 		
 			 return ResponseEntity.status(HttpStatus.OK)
 			        .body(food);
@@ -64,6 +66,22 @@ public class FoodController {
 	@GetMapping("/deletecart/{userid}/{cartid}")
 	public void deleteCart(@PathVariable int userid,@PathVariable int cartid){
 		 cartRepo.deleteCart(userid, cartid);		
+	}
+	
+//	@PostMapping("/updateTotal/{userid}")
+//	public double updateTotal(@PathVariable int userid,@RequestBody TotalPrice price ) {
+//		User user = userRepo.findById(userid).get();
+//		user.setTotalPrices(price);
+//		return ResponseEntity.status(HttpStatus.OK)
+//		        .body();
+//	}
+	
+	@GetMapping("/deletecart/{foodid}")
+	public void deleteFood(@PathVariable int foodid){
+		 FoodDetail deleteFood =foodrepo.findById(foodid).get();
+		 foodrepo.delete(deleteFood);
+		 
+		 	
 	}
 	}
 

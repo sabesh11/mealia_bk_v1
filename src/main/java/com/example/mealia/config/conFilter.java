@@ -2,6 +2,7 @@ package com.example.mealia.config;
 
 import java.io.IOException;
 
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-@Order
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class conFilter implements Filter {
 	 @Override
 	    public void init(FilterConfig filterConfig) throws ServletException {
