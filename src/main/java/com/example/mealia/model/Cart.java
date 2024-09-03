@@ -1,4 +1,4 @@
-package com.example.mealia.model;
+  package com.example.mealia.model;
 
 import java.util.List;
 
